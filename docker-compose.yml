@@ -1,0 +1,106 @@
+# Command to run: 
+# docker-compose build
+# docker-compose up -d
+
+version: "3.8"
+
+services: 
+
+  # src:
+  #   build: 
+  #     context: ./aio-vue
+  #     dockerfile: Dockerfile
+  #   ports: 
+  #     - "8080:8080"
+  #   volumes:
+  #       - ./aio-vue:/usr/src/app/aio-vue
+
+  ###################################
+  # Classes: The Classes microservice
+  ###################################
+  classes: 
+    build: 
+      context: ./
+      dockerfile: services/classes.Dockerfile
+    image: jasmineoxy/classes:latest
+    restart: always
+    environment: 
+      dbURL: mysql+mysqlconnector://is212@host.docker.internal:3306/allinone
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - "5001:5001"
+
+  ###############################################
+  # Courses: The Courses microservice
+  ###############################################
+  course: 
+    build: 
+      context: ./
+      dockerfile: services/course.Dockerfile
+    image: jasmineoxy/course:latest
+    restart: always
+    environment: 
+      dbURL: mysql+mysqlconnector://is212@host.docker.internal:3306/allinone
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - "5000:5000"
+      
+  ###############################################
+  # Employee: The Employee microservice
+  ###############################################
+  employee: 
+    build: 
+      context: ./
+      dockerfile: services/employee.Dockerfile
+    image: jasmineoxy/employee:latest
+    restart: always
+    environment: 
+      dbURL: mysql+mysqlconnector://is212@host.docker.internal:3306/allinone
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - "5002:5002"
+  
+  ###############################################
+  # Learner: The Learner microservice
+  ###############################################
+  learner: 
+    build: 
+      context: ./
+      dockerfile: services/learner.Dockerfile
+    image: jasmineoxy/learner:latest
+    restart: always
+    environment: 
+      dbURL: mysql+mysqlconnector://is212@host.docker.internal:3306/allinone
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - "5004:5004"
+  
+  ###############################################
+  # Section: The Section microservice
+  ###############################################
+  section: 
+    build: 
+      context: ./
+      dockerfile: services/section.Dockerfile
+    image: jasmineoxy/section:latest
+    restart: always
+    environment: 
+      dbURL: mysql+mysqlconnector://is212@host.docker.internal:3306/allinone
+      PYTHONUNBUFFERED: 1
+    ports: 
+      - "5006:5006"
+  
+  ###############################################
+  # ??: The ?? microservice
+  ###############################################
+  # classes: 
+  #   build: 
+  #     context: ./
+  #     dockerfile: classes.Dockerfile
+  #   image: <dockerid>/classes:latest
+  #   restart: always
+  #   environment: 
+  #     dbURL: mysql+mysqlconnector://is212@host.docker.internal:3306/availability??
+  #     PYTHONUNBUFFERED: 1
+  #   ports: 
+  #     -"5001:5001"
